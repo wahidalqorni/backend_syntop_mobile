@@ -41,7 +41,7 @@ class ApiKeranjangController extends Controller
             'success' => true,
             'message' => 'Data berhasil diload',
             'jumlahBarang' => $jumlahBarang,
-            'grandtotal' => $grandTotal->grandtotal,
+            'grandtotal' => (int)$grandTotal->grandtotal,
             'data' => $data
         ], 200);
     }
@@ -68,11 +68,12 @@ class ApiKeranjangController extends Controller
 
             // pengecekan apakah produk sudah ada di tabel keranjang atau blum
             // pengecekan sesuai product_id yg diinputkan dan statusnya adalah '0'
-            $cekKeranjang = Keranjang::where('product_id', $product_id)->where('status','0')->first();
+            $cekKeranjang = Keranjang::where('product_id', $product_id)->where('status','0')->where('user_id',$request->user_id)->first();
 
             // jika produk ditemukan
             // maka lakukan update data
             if($cekKeranjang) {
+                
                 $post = Keranjang::where('product_id', $product_id)->where('status','0')->where('user_id',$request->user_id)
                 ->update(
                     [
@@ -81,6 +82,7 @@ class ApiKeranjangController extends Controller
                     ]
                 );
             } else {
+                
                 // mengirim data ke tabel keranjang
                 $post = Keranjang::create([
                     'product_id' => $product_id,
@@ -89,6 +91,12 @@ class ApiKeranjangController extends Controller
                     'totalharga' => $hargaproduct * $jumlah
                 ]);
             }
+            
+            //  return response()->json([
+            //         'success' => true,
+            //         'message' => 'Input keranjang berhasil!',
+            //         'data'    => $post
+            //     ], 200);
             
             
             if($post) {

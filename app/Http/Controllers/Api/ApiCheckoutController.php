@@ -105,14 +105,51 @@ class ApiCheckoutController extends Controller
 
     public function getCheckoutBaru()
     {
+        $datas = [];
+        $items = [];
         try {
             $data = Checkout::where('user_id', request('user_id'))->where('status', '0')->get();
             // response success
+            
+            foreach($data as $dt) {
+                $item = DB::table('keranjangs')
+                        ->join('products', 'products.id','keranjangs.product_id')
+                        ->join('merks', 'merks.id', 'products.merk_id' )
+                        ->select(DB::raw(
+                            'keranjangs.*, products.nama_product, products.gambar, products.harga as harga_satuan, merks.merk_product'
+                        ))
+                        ->where('keranjangs.checkout_id',$dt->id)
+                        ->first();
+                
+                // foreach($items as $itm) {
+                //     $items[] = $itm;
+                // }
+                
+                $datas[] = [
+                    'id' => $dt->id,
+                    'kode_transaksi' => $dt->kode_transaksi,
+                    'user_id' => $dt->user_id,
+                    'nama' => $dt->nama,
+                    'nohp' => $dt->nohp,
+                    'kota_kecamatan' => $dt->kota_kecamatan,
+                    'alamat' => $dt->alamat,
+                    'catatan' => $dt->catatan,
+                    'jenis_pembayaran' => $dt->jenis_pembayaran,
+                    'jenis_pengiriman' => $dt->jenis_pengiriman,
+                    'ongkir' => $dt->ongkir,
+                    'grand_total' => $dt->grand_total,
+                    'status' => $dt->status,
+                    'created_at' => $dt->created_at,
+                    'updated_at' => $dt->updated_at,
+                    'item' => $item
+                ];
+            }
+            
             return response()->json(
                 [
                     'success' => true,
                     'message' => 'Get Data Berhasil',
-                    'data' => $data
+                    'data' => $datas
                 ],
                 200
             );
@@ -131,14 +168,51 @@ class ApiCheckoutController extends Controller
 
     public function getCheckoutProses()
     {
+        $datas = [];
+
         try {
             $data = Checkout::where('user_id', request('user_id'))->where('status', '1')->get();
+            
+            foreach($data as $dt) {
+                $item = DB::table('keranjangs')
+                        ->join('products', 'products.id','keranjangs.product_id')
+                        ->join('merks', 'merks.id', 'products.merk_id' )
+                        ->select(DB::raw(
+                            'keranjangs.*, products.nama_product, products.gambar, products.harga as harga_satuan, merks.merk_product'
+                        ))
+                        ->where('keranjangs.checkout_id',$dt->id)
+                        ->first();
+                
+                // foreach($items as $itm) {
+                //     $items[] = $itm;
+                // }
+                
+                $datas[] = [
+                    'id' => $dt->id,
+                    'kode_transaksi' => $dt->kode_transaksi,
+                    'user_id' => $dt->user_id,
+                    'nama' => $dt->nama,
+                    'nohp' => $dt->nohp,
+                    'kota_kecamatan' => $dt->kota_kecamatan,
+                    'alamat' => $dt->alamat,
+                    'catatan' => $dt->catatan,
+                    'jenis_pembayaran' => $dt->jenis_pembayaran,
+                    'jenis_pengiriman' => $dt->jenis_pengiriman,
+                    'ongkir' => $dt->ongkir,
+                    'grand_total' => $dt->grand_total,
+                    'status' => $dt->status,
+                    'created_at' => $dt->created_at,
+                    'updated_at' => $dt->updated_at,
+                    'item' => $item
+                ];
+            }
+
             // response success
             return response()->json(
                 [
                     'success' => true,
                     'message' => 'Get Data Berhasil',
-                    'data' => $data
+                    'data' => $datas
                 ],
                 200
             );
@@ -157,14 +231,50 @@ class ApiCheckoutController extends Controller
 
     public function getCheckoutSelesai()
     {
+        $datas = [];
+
         try {
             $data = Checkout::where('user_id', request('user_id'))->where('status', '2')->get();
+
+            foreach($data as $dt) {
+                $item = DB::table('keranjangs')
+                        ->join('products', 'products.id','keranjangs.product_id')
+                        ->join('merks', 'merks.id', 'products.merk_id' )
+                        ->select(DB::raw(
+                            'keranjangs.*, products.nama_product, products.gambar, products.harga as harga_satuan, merks.merk_product'
+                        ))
+                        ->where('keranjangs.checkout_id',$dt->id)
+                        ->first();
+                
+                // foreach($items as $itm) {
+                //     $items[] = $itm;
+                // }
+                
+                $datas[] = [
+                    'id' => $dt->id,
+                    'kode_transaksi' => $dt->kode_transaksi,
+                    'user_id' => $dt->user_id,
+                    'nama' => $dt->nama,
+                    'nohp' => $dt->nohp,
+                    'kota_kecamatan' => $dt->kota_kecamatan,
+                    'alamat' => $dt->alamat,
+                    'catatan' => $dt->catatan,
+                    'jenis_pembayaran' => $dt->jenis_pembayaran,
+                    'jenis_pengiriman' => $dt->jenis_pengiriman,
+                    'ongkir' => $dt->ongkir,
+                    'grand_total' => $dt->grand_total,
+                    'status' => $dt->status,
+                    'created_at' => $dt->created_at,
+                    'updated_at' => $dt->updated_at,
+                    'item' => $item
+                ];
+            }
             // response success
             return response()->json(
                 [
                     'success' => true,
                     'message' => 'Get Data Berhasil',
-                    'data' => $data
+                    'data' => $datas
                 ],
                 200
             );
