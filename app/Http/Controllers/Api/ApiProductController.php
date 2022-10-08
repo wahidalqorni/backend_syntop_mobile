@@ -3,11 +3,50 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Merk;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ApiProductController extends Controller
 {
+    // menampilkan merk
+    public function getMerk()
+    {
+        $data = Merk::orderBy('merk_product')->get();
+
+        // tampilkan responsenya
+        // menggunakan format json
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'Data berhasil diload',
+                'data' => $data,
+            ],
+            200
+        );
+    }
+
+    // menampilkan product berdasarkan merk_id
+    public function getProductByMerkId()
+    {
+        $data = Product::with(['merk'])
+            ->where('status', '1')
+            ->where('merk_id', request('merk_id') )
+            ->orderBy('nama_product', 'ASC')
+            ->get();
+
+        // tampilkan responsenya
+        // menggunakan format json
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'Data berhasil diload',
+                'data' => $data,
+            ],
+            200
+        );
+    }
+
     // menampilkan product rekmoendasi
     public function getRekomendasi()
     {

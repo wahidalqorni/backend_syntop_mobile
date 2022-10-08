@@ -27,6 +27,10 @@ Route::get('/product-new', [App\Http\Controllers\Api\ApiProductController::class
 Route::get('/product-search',[App\Http\Controllers\Api\ApiProductController::class, 'searchProduct' ]);
 Route::get('/product-detail/{id}', [App\Http\Controllers\Api\ApiProductController::class,'detailProduct']);
 
+// MERK
+Route::get('/merk-list', [App\Http\Controllers\Api\ApiProductController::class, 'getMerk']);
+Route::get('/product-by-merk', [App\Http\Controllers\Api\ApiProductController::class, 'getProductByMerkId']);
+
 // KERANJANG
 Route::post('/keranjang-post', [App\Http\Controllers\Api\ApiKeranjangController::class, 'postKeranjang']);
 Route::get('/keranjang-list', [App\Http\Controllers\Api\ApiKeranjangController::class, 'getAllKeranjang']);
