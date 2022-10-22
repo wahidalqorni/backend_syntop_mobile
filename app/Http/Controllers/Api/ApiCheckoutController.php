@@ -327,4 +327,36 @@ class ApiCheckoutController extends Controller
             );
         }
     }
+
+    public function uploadBuktiBayar(Request $request){
+        try {
+
+            $checkout_id = $request->checkout_id;
+            $pathGambar = $request->file('buktibayar')->store('bukti-bayar');
+
+            Checkout::where('id', $checkout_id)->update([
+                'buktibayar' => $pathGambar,
+            ]);
+            // response success
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'Get Data Berhasil',
+                    'data' => []
+                ],
+                200
+            );
+        } catch (Exception $error) {
+            // response gagal
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Get Data Gagal ' . $error->getMessage(),
+                    'data' => []
+                ],
+                500
+            );
+        }
+    }
+
 }
