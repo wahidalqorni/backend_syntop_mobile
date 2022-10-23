@@ -8,6 +8,7 @@ use App\Models\Keranjang;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ApiCheckoutController extends Controller
@@ -138,6 +139,7 @@ class ApiCheckoutController extends Controller
                     'jenis_pengiriman' => $dt->jenis_pengiriman,
                     'ongkir' => $dt->ongkir,
                     'grand_total' => $dt->grand_total,
+                    'buktibayar' => $dt->buktibayar,
                     'status' => $dt->status,
                     'created_at' => $dt->created_at,
                     'updated_at' => $dt->updated_at,
@@ -200,6 +202,7 @@ class ApiCheckoutController extends Controller
                     'jenis_pengiriman' => $dt->jenis_pengiriman,
                     'ongkir' => $dt->ongkir,
                     'grand_total' => $dt->grand_total,
+                    'buktibayar' => $dt->buktibayar,
                     'status' => $dt->status,
                     'created_at' => $dt->created_at,
                     'updated_at' => $dt->updated_at,
@@ -263,6 +266,7 @@ class ApiCheckoutController extends Controller
                     'jenis_pengiriman' => $dt->jenis_pengiriman,
                     'ongkir' => $dt->ongkir,
                     'grand_total' => $dt->grand_total,
+                    'buktibayar' => $dt->buktibayar,
                     'status' => $dt->status,
                     'created_at' => $dt->created_at,
                     'updated_at' => $dt->updated_at,
@@ -332,7 +336,16 @@ class ApiCheckoutController extends Controller
         try {
 
             $checkout_id = $request->checkout_id;
-            $pathGambar = $request->file('buktibayar')->store('bukti-bayar');
+
+            // cek data
+            $data = Checkout::find($checkout_id);
+
+            if($data->buktibayar != null) {
+                Storage::delete($data->buktibayar);
+                $pathGambar = $request->file('buktibayar')->store('bukti-bayar');
+            } else {
+                $pathGambar = $request->file('buktibayar')->store('bukti-bayar');
+            }
 
             Checkout::where('id', $checkout_id)->update([
                 'buktibayar' => $pathGambar,
@@ -341,7 +354,7 @@ class ApiCheckoutController extends Controller
             return response()->json(
                 [
                     'success' => true,
-                    'message' => 'Get Data Berhasil',
+                    'message' => 'Upload Data Berhasil',
                     'data' => []
                 ],
                 200

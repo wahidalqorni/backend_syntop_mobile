@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('checkouts', function (Blueprint $table) {
+            // menambahkan field buktibayar setelah field status dan bersifat nullable (boleh null)
             $table->string('buktibayar')->after('status')->nullable();
         });
     }
