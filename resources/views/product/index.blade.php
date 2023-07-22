@@ -51,10 +51,10 @@
                                             <td>{{ $product->nama_product }}</td>
                                             <td>{{ format_rupiah($product->harga) }}</td>
                                             <td>
-                                                {{-- <img src="{{ asset('storage/' . $product->gambar) }}" width="500"
-                                                    srcset=""> --}}
-                                                <img src="{{ $product->gambar }}" width="500"
+                                                <img src="{{ asset('storage/' . $product->gambar) }}" width="500"
                                                     srcset="">
+                                                {{-- <img src="{{ $product->gambar }}" width="500"
+                                                    srcset=""> --}}
                                             </td>
                                             <td>
                                                 <?php echo htmlspecialchars_decode($product->spesifikasi) ?>

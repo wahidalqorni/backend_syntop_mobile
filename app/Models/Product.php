@@ -19,8 +19,8 @@ class Product extends Model
     }
 
     // menampilkan data gambar beserta link akses filenya
-    public function getGambarAttribute($value)
-    {
-        return url(Storage::url($value));
-    }
+    // public function getGambarAttribute($value)
+    // {
+    //     return url(Storage::url($value));
+    // }
 }

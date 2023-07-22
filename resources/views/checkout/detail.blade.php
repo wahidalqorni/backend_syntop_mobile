@@ -71,6 +71,17 @@
                                         <th>:</th>
                                         <th>Rp. {{ number_format($data->grand_total) }}</th>
                                     </tr>
+                                    <tr>
+                                        <th>Bukti Bayar</th>
+                                        <th>:</th>
+                                        <th>
+                                            @if($data->buktibayar == "" || $data->buktibayar == null)
+                                                Belum upload
+                                            @else
+                                                <img src="{{ asset('storage/' . $data->buktibayar ) }}" width="200px" srcset="">
+                                            @endif
+                                        </th>
+                                    </tr>
                                 </thead>
                             </table>
                         </div>

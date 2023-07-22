@@ -16,7 +16,7 @@
         <span></span>
       </li>
       {{-- jika role user adalah admin --}}
-      @if (Auth::user()->role == '1')
+      {{-- @if (@Auth::user()->role == '1') --}}
       <li class="nav-item {{ set_active( ['merk','add-merk','edit-merk','product','add-product','edit-product'] )}}">
         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
           <i class="mdi mdi-palette menu-icon"></i>
@@ -30,7 +30,7 @@
           </ul>
         </div>
       </li>
-      @endif
+      {{-- @endif --}}
       
       <li class="nav-item {{ set_active( ['user','add-user','edit-user'] )}}">
         <a class="nav-link" href="{{ route('user') }}">

@@ -17,7 +17,8 @@ class ApiUserController extends Controller
         $rules = array(
             "name" => "required",
             "email" => "required|unique:users|email",
-            "password" => "required|min:6"
+            "password" => "required|min:6",
+            "telepon" => "required"
         );
 
         $validator = Validator::make($request->all(), $rules);
@@ -38,6 +39,7 @@ class ApiUserController extends Controller
                     'name' => $request->name,
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
+                    'telepon' => $request->telepon
                 ]);
                 // menggunakan format json
                 return response()->json(

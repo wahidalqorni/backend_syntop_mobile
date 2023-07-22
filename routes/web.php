@@ -27,7 +27,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/send-email', [App\Http\Controllers\MailController::class, 'index']);
 
 // middleware auth utk membatasi akses routing tertentu harus melewati login terlebih dahulu
-Route::group(['middleware' => ['auth'] ], function(){
+// Route::group(['middleware' => ['auth'] ], function(){
 
     // isi kan dengan routing yg ingin dibatasi
     Route::get('/user', [App\Http\Controllers\UserController::class, 'index'])->name('user');
@@ -55,5 +55,5 @@ Route::group(['middleware' => ['auth'] ], function(){
     Route::get('/detail/{id}', [App\Http\Controllers\CheckoutController::class, 'detail'])->name('detail-pemesanan');
     Route::post('/update-status-pemesanan', [App\Http\Controllers\CheckoutController::class, 'updateStatus'])->name('update-status-pemesanan');
 
-} );
+// } );
 
