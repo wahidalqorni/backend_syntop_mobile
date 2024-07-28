@@ -46,8 +46,9 @@
                                         <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                                     </span>
                                 </div>
-                                {{-- <img src="{{ asset('storage/'. $data->gambar ) }}" width="300px" srcset=""> --}}
-                                <img src="{{  $data->gambar  }}" width="300px" srcset="">
+                                
+                                <img src="{{ asset('storage/'. $data->gambar ) }}" width="300px" srcset="">
+                                {{--<img src="{{  $data->gambar  }}" width="300px" srcset="">--}}
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputSpesifikasi4">Spesifikasi</label>
