@@ -162,7 +162,7 @@ class ApiCheckoutController extends Controller
             // proses update tabel keranjangs pd field checkout_id dan status
 
             // yg bakal diupdate adlh yg statusnya masih keranjang (0)
-            $updateDetail = Keranjang::where('status', '0')->where('user_id', $request->user_id)->where('keranjang_id', $request->keranjang_id )->update([
+            $updateDetail = Keranjang::where('status', '0')->where('user_id', $request->user_id)->where('id', $request->keranjang_id )->update([
                 'checkout_id' => $checkout_id,
                 'status' => '1'
             ]);
