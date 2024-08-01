@@ -150,7 +150,7 @@ class ApiCheckoutController extends Controller
                 'kota_kecamatan' => $request->kota_kecamatan,
                 'catatan' => $request->catatan,
                 'jenis_pembayaran' => $request->jenis_pembayaran,
-                'jenis_pengiriman' => $request->jenis_pengiriman,
+                'jenis_pengiriman' => "Sicepat",
                 'ongkir' => $ongkir,
                 'grand_total' => $getTotalHarga->totalharga + $ongkir
             ]);
