@@ -110,6 +110,7 @@ class ApiCheckoutController extends Controller
         $getTotalHarga = DB::table('keranjangs')
             ->select(DB::raw('SUM(totalharga) as totalharga '))
             ->where('status', '0')
+            ->where('id', $request->keranjang_id)
             ->where('user_id', $request->user_id)
             ->first();
         // var_dump($getTotalHarga->totalharga);
@@ -141,6 +142,7 @@ class ApiCheckoutController extends Controller
             // 1. proses insert data ke tabel checkouts
             $postCheckout = Checkout::create([
                 'kode_transaksi' => 'STP-' . Str::random(5),
+                'keranjang_id' => $request->keranjang_id,
                 'user_id' => $request->user_id,
                 'nama' => $request->nama,
                 'nohp' => $request->nohp,
@@ -160,7 +162,7 @@ class ApiCheckoutController extends Controller
             // proses update tabel keranjangs pd field checkout_id dan status
 
             // yg bakal diupdate adlh yg statusnya masih keranjang (0)
-            $updateDetail = Keranjang::where('status', '0')->where('user_id', $request->user_id)->update([
+            $updateDetail = Keranjang::where('status', '0')->where('user_id', $request->user_id)->where('keranjang_id', $request->keranjang_id )->update([
                 'checkout_id' => $checkout_id,
                 'status' => '1'
             ]);
